@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from functools import wraps
 
 
 def hello(func):
@@ -9,19 +10,11 @@ def hello(func):
     return inner
 
 
-def validate(func):
-    def vali(a, b):
-        print("vali", a, b)
-        func(a, b)
-
-    return vali
-
-
-@hello
-@validate
+@hello(True)
 def name(a, b):
     print("Alice")
 
 
 if __name__ == "__main__":
+    print(dir(dataclass))
     name("first", "second")
