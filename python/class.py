@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import math
+import random
 import os
 import polars as pl
 from datetime import datetime
@@ -23,21 +24,35 @@ SIMPLE_COFFEE_DOUBLE = Coffee(
 print(SIMPLE_COFFEE.__eq__(SIMPLE_COFFEE_DOUBLE))
 
 
+class Animal:
+    pass
+
+
+class Duck(Animal):
+    def __init__(self, color):
+        self.color = color
+
+    @classmethod
+    def create_random(cls):
+        color = random.choice(['yellow', 'red', 'blue'])
+        return cls(color=color)
+
+    @staticmethod
+    def make_sound():
+        pass
+
+    @property
+    def basename():
+        pass
+
+    @basename.setter
+    def basename():
+        pass
+
+
+class Cat(Animal):
+    pass
+
+
 if __name__ == '__main__':
-    cur_path = os.fspath(os.getcwd())
-    print(os.fspath(cur_path))
-
-    df = pl.DataFrame(
-        {
-            "integer": [1, 2, 3],
-            "date": [
-                datetime(2025, 1, 1),
-                datetime(2025, 1, 2),
-                datetime(2025, 1, 3),
-            ],
-            "float": [4.0, 5.0, 6.0],
-            "string": ["a", "b", "c"],
-        }
-    )
-
-    print(df)
+    pass
