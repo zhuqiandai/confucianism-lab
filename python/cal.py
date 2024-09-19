@@ -1,5 +1,4 @@
 import calendar
-import requests
 
 if __name__ == '__main__':
     cal = calendar.Calendar()

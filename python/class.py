@@ -42,10 +42,14 @@ class Duck(Animal):
         pass
 
     @property
+    def basename(self):
+        return self.color
+
+    @basename.setter
     def basename():
         pass
 
-    @basename.setter
+    @basename.deleter
     def basename():
         pass
 
@@ -55,4 +59,6 @@ class Cat(Animal):
 
 
 if __name__ == '__main__':
-    pass
+    duck = Duck.create_random()
+
+    print(duck.basename)
