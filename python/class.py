@@ -8,6 +8,15 @@ from datetime import datetime
 
 @dataclass
 class Coffee():
+    """
+    Coffee class custom
+
+    :param name: str
+    :param price: float
+    :param ingredients: list[str]
+    :param is_vegan: bool
+
+    """
     name: str
     price: float
     ingredients: list[str]
