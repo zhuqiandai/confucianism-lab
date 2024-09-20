@@ -19,6 +19,9 @@ print('{:_>10.5}'.format('xylophone'))
 
 class Data(object):
 
+    def _private_method(self):
+        pass
+
     def __str__(self):
         return 'str'
 
