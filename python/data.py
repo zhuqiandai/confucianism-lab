@@ -32,8 +32,8 @@ rows_by_uid = sorted(portfolio, key=itemgetter('price'))
 print(rows_by_uid)
 
 # ChainMap
-a = {'x': 1, 'z': 3 }
-b = {'y': 2, 'z': 4 }
+a = {'x': 1, 'z': 3}
+b = {'y': 2, 'z': 4}
 
 c = ChainMap(a, b)
 c.new_child()
@@ -59,3 +59,18 @@ d['spam'] = 3
 for key in d:
     print(key, d[key])
 
+values = (1, 2)
+
+
+def add(a, b):
+    return a + b
+
+
+add(*values)
+
+
+def added(*values):
+    s = 0
+    for v in values:
+        s += v
+    return s
