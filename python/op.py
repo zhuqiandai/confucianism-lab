@@ -1,3 +1,1 @@
-import operator
-
-print(operator.ge(10, 20))
+animals = ['cat', 'dog', 'moose']

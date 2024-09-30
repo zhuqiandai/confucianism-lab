@@ -5,7 +5,6 @@ import os
 import polars as pl
 from datetime import datetime
 
-
 @dataclass
 class Coffee():
     """
