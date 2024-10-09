@@ -22,8 +22,12 @@ fn main() {
     read(x);
 
     // 替代 gc，s2 离开 scope 时 free，s1 离开时不需要处理，已经没有 ownership
-    let s1 = String::from("Hello");
-    let s2 = s1;
+    // move semantic
+    let s1 = String::from("Hello sdfsdfsadf lorem djsfsdkfjsladf sdfadfsdfasdfsadfsdfdfsdffd");
+    let mut s2 = s1;
+
+    let s3 = String::from("World");
+    let mut s4 = s3.clone();
 
     let be = Backends { homenames: Vec::new(), weights: Vec::new() };
     let ne = be.clone();
@@ -32,6 +36,20 @@ fn main() {
     let m1 = 3;
     let m2 = m1;
 
+    // immut borrowing
+    // mut borrowing
+    let r1 = &mut s2;
+
+    let r3 = &s3;
+    let r4 = &mut s4;
+    r4.push_str("with push str");
+
+    let x = 4;
+    let boxed_x = Box::new(x); 
+    let unbox_x = *boxed_x;
+
+    println!("boxed: {boxed_x}");
+    println!("unbox: {unbox_x}");
     println!("m2: {m2}");
     println!("s2: {s2}");
 }

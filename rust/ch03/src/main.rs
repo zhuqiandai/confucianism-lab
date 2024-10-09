@@ -1,28 +1,16 @@
-use std::rc::Rc;
-use std::cell::RefCell;
-
-
-#[derive(Debug, Default)]
-struct Node {
-    value: i64,
-    children: Vec<Rc<RefCell<Node>>>,
+#[derive(Default)]
+struct Backends {
+    hostnames: Vec<String>,
+    weights: Vec<f64>
 }
 
-impl Node {
-    fn new (value: i64) -> Rc<RefCell<Node>> {
-        Rc::new(RefCell::new (Node {value, ..Node::default()}))
+impl Backends {
+    fn set_hostnames(&mut self, hostnames: &Vec<String>) {
+        self.hostnames = hostnames.clone();
+        self.weights = hostnames.iter().map(|_| 1.0).collect();
     }
 }
 
-#[derive(Debug)]
-struct Point(i32, i32);
-struct Line(i32, i32, i32);
-
-fn add(p1: &Point, p2: &Point) -> Point {
-    Point(p1.0 + p2.0, p1.1 + p2.1)
-}
-
-fn main() {
-    let n1 = Node::default();
-    println!("{n1:?}");
+fn main () {
+    
 }
