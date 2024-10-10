@@ -7,7 +7,7 @@ fn read(y: bool) {
 #[derive(Clone)]
 struct Backends {
     homenames: Vec<String>,
-    weights: Vec<f64>
+    weights: Vec<f64>,
 }
 
 impl Backends {
@@ -15,6 +15,11 @@ impl Backends {
         // move
         let names = self.homenames.clone();
     }
+}
+
+fn add_suffix(mut name: String) -> String {
+    name.push_str("JR.");
+    name
 }
 
 fn main() {
@@ -29,7 +34,10 @@ fn main() {
     let s3 = String::from("World");
     let mut s4 = s3.clone();
 
-    let be = Backends { homenames: Vec::new(), weights: Vec::new() };
+    let be = Backends {
+        homenames: Vec::new(),
+        weights: Vec::new(),
+    };
     let ne = be.clone();
 
     // 这里是 Copy trait
@@ -45,11 +53,27 @@ fn main() {
     r4.push_str("with push str");
 
     let x = 4;
-    let boxed_x = Box::new(x); 
+    let z= &x;
+    let boxed_x = Box::new(x);
     let unbox_x = *boxed_x;
 
-    println!("boxed: {boxed_x}");
-    println!("unbox: {unbox_x}");
-    println!("m2: {m2}");
-    println!("s2: {s2}");
+    let first = String::from("Ferris");
+    let full = add_suffix(first);
+
+    // deref
+    let mut x: Box<i32> = Box::new(1);
+    let a: i32 = *x;
+
+    let r1 = &x;
+    let b = **r1;
+    let r2 = &*x;
+
+   let absr1=  r1.abs();
+
+    println!("{full}");
+
+    // println!("boxed: {boxed_x}");
+    // println!("unbox: {unbox_x}");
+    // println!("m2: {m2}");
+    // println!("s2: {s2}");
 }
