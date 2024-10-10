@@ -53,7 +53,7 @@ fn main() {
     r4.push_str("with push str");
 
     let x = 4;
-    let z= &x;
+    let z = &x;
     let boxed_x = Box::new(x);
     let unbox_x = *boxed_x;
 
@@ -68,9 +68,14 @@ fn main() {
     let b = **r1;
     let r2 = &*x;
 
-   let absr1=  r1.abs();
+    let absr1 = r1.abs();
 
     println!("{full}");
+
+    let mut v: Vec<i32> = vec![1, 2, 3];
+    let num: &i32 = &v[2];
+    v.push(4);
+    println!("Third element is {}", *num);
 
     // println!("boxed: {boxed_x}");
     // println!("unbox: {unbox_x}");
