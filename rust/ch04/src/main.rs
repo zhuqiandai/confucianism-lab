@@ -1,3 +1,5 @@
+mod permission;
+
 fn read(y: bool) {
     if y {
         println!("y is true")
@@ -77,6 +79,9 @@ fn main() {
 
     println!("{}", *num);
     v.push(4);
+
+    // permission::read_reference();
+    permission::borrow_reference();
 
     // println!("boxed: {boxed_x}");
     // println!("unbox: {unbox_x}");
