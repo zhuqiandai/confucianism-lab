@@ -52,7 +52,7 @@ let rec first f k =
 
 let is_odd x = x mod 2 = 1
 let fodd = first is_odd 10;;
-print_int fodd;;
 
 (* lamda fun *)
-let div x y = first (fun k -> (k + 1) * y > x) 0
+let div x y = first (fun k -> (k + 1) * y > x) 0;;
+print_int (div 11 3);;
