@@ -56,3 +56,14 @@ let fodd = first is_odd 10;;
 (* lamda fun *)
 let div x y = first (fun k -> (k + 1) * y > x) 0;;
 print_int (div 11 3);;
+
+
+let square x = x * x
+
+
+let pow8 x = square (square (square x));;
+print_int (pow8 20);;
+
+
+
+
