@@ -1,4 +1,4 @@
-import { Effect } from 'npm:effect'
+import { Data, Effect } from 'npm:effect'
 
 
-Effect.runFork
+class CustomError extends Data.tagged() {}
