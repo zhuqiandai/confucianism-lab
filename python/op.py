@@ -1,1 +1,0 @@
-animals = ['cat', 'dog', 'moose']

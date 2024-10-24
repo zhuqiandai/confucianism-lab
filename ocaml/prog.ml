@@ -53,3 +53,25 @@ let is_adult (age, name) =
   match age with
   | age when age >= 18 -> Printf.printf "%s is an adult.\n" name
   | _ -> Printf.printf "%s is not an adult.\n" name
+
+(* a constructor is already a value *)
+type day = Sun | Mon | Tue | Wed | Thu | Fri | Sat
+let d = Tue
+
+type ptype =
+  TNormal | TFire | TWater
+
+type peff =
+  ENormal | ENotVery | ESuper
+
+type mon = {name : string; hp : int; ptype : ptype}
+
+let c = {name = "Charmander"; hp = 39; ptype = TFire};;
+
+(* record copy sugar *)
+let e = { c with hp = 40; ptype = TWater };;
+
+let y = 10 ;;
+print_int (let f = fun x -> x + y in f 5);;
+
+

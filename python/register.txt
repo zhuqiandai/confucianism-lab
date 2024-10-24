@@ -1,8 +1,0 @@
-const collection = getCollection()
-const collection = getCollection()
-
-const process(somethingInTheWya, target)
-const process(somethingInTheWya, target)
-const process(somethingInTheWya, target)
-const process(somethingInTheWya, target)
-
