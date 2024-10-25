@@ -74,4 +74,9 @@ let e = { c with hp = 40; ptype = TWater };;
 let y = 10 ;;
 print_int (let f = fun x -> x + y in f 5);;
 
+let succ x = x + 1
+let rec iter f n x = if n < 1 then x else iter f (n - 1) (f x)
 
+let add x y = iter succ y x;;
+
+print_int (add 10 20);;

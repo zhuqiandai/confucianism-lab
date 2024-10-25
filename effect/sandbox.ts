@@ -1,4 +1,4 @@
-import { Effect, Console } from "effect";
+import { Exit, Effect, Console } from "effect";
 
 const effect = Effect.die("Oh uh!").pipe(Effect.as("primary result"));
 
