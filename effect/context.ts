@@ -15,3 +15,12 @@ namespace EffectNumberGeneratorLibrary {
     );
   }
 }
+
+
+// context = tags (as keys) + service (as values)
+// here MyRandomService is tags
+// next is service
+class Random extends Context.Tag("MyRandomService")<
+  Random,
+  { readonly next: Effect.Effect<number> }
+>() {}
