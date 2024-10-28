@@ -1,6 +1,5 @@
 import { pipe, Option, Effect, Match, Data, Context } from "effect";
 
-
 namespace EffectNumberGeneratorLibrary {
   export function generateRandomNumber(): Effect.Effect<number, Error, never> {
     return pipe(
@@ -11,11 +10,10 @@ namespace EffectNumberGeneratorLibrary {
         }
 
         return Effect.succeed(randomNumber);
-      })
+      }),
     );
   }
 }
-
 
 // context = tags (as keys) + service (as values)
 // here MyRandomService is tags

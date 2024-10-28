@@ -1,19 +1,16 @@
-
 // error and filter
 
-import { Random, Console, Effect, Cause} from "effect";
+import { Random, Console, Effect, Cause } from "effect";
 
+const simulatedTask = Effect.fail("Oh no!").pipe(Effect.as(1));
 
-const simulatedTask = Effect.fail("Oh no!").pipe(Effect.as(1))
-
-const simulatedTask1 = new Cause.IllegalArgumentException("is negative")
+const simulatedTask1 = new Cause.IllegalArgumentException("is negative");
 
 // Runtime Exception
-const simulatedTask2 = Effect.dieMessage("is negative")
+const simulatedTask2 = Effect.dieMessage("is negative");
 
 // const sandboxed = Effect.sandbox(simulatedTask1)
-const sandboxed = Effect.sandbox(simulatedTask2)
-
+const sandboxed = Effect.sandbox(simulatedTask2);
 
 const program = Effect.catchTags(sandboxed, {
   Die: (cause) =>
@@ -34,4 +31,4 @@ const main = Effect.unsandbox(program);
 
 Effect.runPromise(main).then(console.log);
 
-Random.nextRange(0, 1)
+Random.nextRange(0, 1);
