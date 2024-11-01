@@ -12,17 +12,17 @@ class OneHundred extends Context.Tag("MyOneHundred")<
 
 const program = pipe(
   Effect.all([Random, OneHundred]),
-  Effect.flatMap(([random, onehundred]) => random.next),
+  Effect.andThen(([random, onehundred]) => Effect.all([random.next, onehundred.next])),
+  Effect.andThen(([r, o]) => r + o)
 )
 
-// type RandomShape = Context.Tag.Service<Random>;
-//
-// const runable = Effect.provideService(program, Random, {
-//   next: Effect.sync(() => Math.random()),
-// });
-//
-// const contextPack = Context.empty().pipe(
-//   Context.add(Random, { next: Effect.sync(() => Math.random()) }),
-// );
+const contextPack = Context.empty().pipe(
+  Context.add(Random, { next: Effect.sync(() => Math.random()) }),
+  Context.add(OneHundred, { next: Effect.sync(() => 100) })
+);
 
+const runable = Effect.provide(program, contextPack)
 
+Effect.runPromise(runable).then(v => {
+  console.log(v)
+})
