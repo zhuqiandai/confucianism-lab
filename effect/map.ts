@@ -40,24 +40,27 @@ function findInArray<A>(
 
 const numbers = [1, 2, 3, 4, 5];
 const findEven = findInArray(numbers, (num) => num % 2 === 0);
-const findPostIdEvenv = findInArray(posts, p => p.id % 2 === 0)
-
+const findPostIdEvenv = findInArray(posts, (p) => p.id % 2 === 0);
 
 Effect.match(findEven, {
-	onSuccess: constVoid,
-	onFailure: (error) => {
-		console.error("中间步骤处理 error", error)
-	}
-})
+  onSuccess: constVoid,
+  onFailure: (error) => {
+    console.error("中间步骤处理 error", error);
+  },
+});
 
-Effect.runPromise(findEven).then(even => {
-	console.log("程序结果", even)
-}).catch(error => {
-		console.log("最后错误", error)
-	})
+Effect.runPromise(findEven)
+  .then((even) => {
+    console.log("程序结果", even);
+  })
+  .catch((error) => {
+    console.log("最后错误", error);
+  });
 
-Effect.runPromise(findPostIdEvenv).then(even => {
-	console.log("程序结果", even)
-}).catch(error => {
-		console.log("最后错误", error)
-	})
+Effect.runPromise(findPostIdEvenv)
+  .then((even) => {
+    console.log("程序结果", even);
+  })
+  .catch((error) => {
+    console.log("最后错误", error);
+  });
