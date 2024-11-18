@@ -1,4 +1,4 @@
-import { pipe, Option, Context, Effect, Match, Data, Console, Layer } from "effect";
+import { pipe, Option, Context, Effect, Match, Data, Console, Layer, Tracer } from "effect";
 
 class Random extends Context.Tag("MyRandomService")<
   Random,
@@ -16,11 +16,11 @@ const program = pipe(
   Effect.andThen(([r, o]) => r + o)
 )
 
-const contextPack = Context.empty().pipe(
+const contextPack = pipe(
+	Context.empty(),
   Context.add(Random, { next: Effect.sync(() => Math.random()) }),
   Context.add(OneHundred, { next: Effect.sync(() => 100) })
 );
-
 const runable = Effect.provide(program, contextPack)
 
 Effect.runPromise(runable).then(v => {

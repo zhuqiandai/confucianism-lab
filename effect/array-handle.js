@@ -57,70 +57,63 @@ function _is_native_reflect_construct() {
         return !!result;
     })();
 }
-import { Effect, Data } from "effect";
-import { constVoid } from "effect/Function";
-var posts = [
-    {
-        userId: 1,
-        id: 1,
-        title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-        body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-    },
-    {
-        userId: 1,
-        id: 2,
-        title: "qui est esse",
-        body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
-    },
-    {
-        userId: 1,
-        id: 3,
-        title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-        body: "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
-    }
-];
-var NotFindError = /*#__PURE__*/ function(_Data_TaggedError) {
+import { Data, Effect, pipe } from 'effect';
+var NotFoundError = /*#__PURE__*/ function(_Data_TaggedError) {
     "use strict";
-    _inherits(NotFindError, _Data_TaggedError);
-    function NotFindError() {
-        _class_call_check(this, NotFindError);
-        return _call_super(this, NotFindError, arguments);
+    _inherits(NotFoundError, _Data_TaggedError);
+    function NotFoundError() {
+        _class_call_check(this, NotFoundError);
+        return _call_super(this, NotFoundError, arguments);
     }
-    return NotFindError;
-}(Data.TaggedError("NotFindError"));
-function findInArray(array, predicate) {
-    var target = array.find(predicate);
-    return target ? Effect.succeed(target) : new NotFindError({
-        message: "没有元素"
-    });
-}
+    return NotFoundError;
+}(Data.TaggedError("NotFoundError"));
+var NotOddNumber = /*#__PURE__*/ function(_Data_TaggedError) {
+    "use strict";
+    _inherits(NotOddNumber, _Data_TaggedError);
+    function NotOddNumber() {
+        _class_call_check(this, NotOddNumber);
+        return _call_super(this, NotOddNumber, arguments);
+    }
+    return NotOddNumber;
+}(Data.TaggedError("NotOddNumber"));
+var EffectFindFirstElement = function(x, predicate) {
+    return pipe(Effect.succeed(x), Effect.map(function(x) {
+        return x.find(predicate);
+    }), Effect.flatMap(function(x) {
+        return x ? Effect.succeed(x) : Effect.fail(new NotFoundError());
+    }));
+};
+var validateFeature = function(x) {
+    return pipe(Effect.succeed(x), Effect.flatMap(function(x) {
+        return x % 2 === 0 ? Effect.succeed(x) : Effect.fail(new NotOddNumber());
+    }));
+};
 var numbers = [
     1,
-    2,
     3,
     4,
-    5
+    5,
+    6
 ];
-var findEven = findInArray(numbers, function(num) {
-    return num % 2 === 0;
-});
-var findPostIdEvenv = findInArray(posts, function(p) {
-    return p.id % 2 === 0;
-});
-Effect.match(findEven, {
-    onSuccess: constVoid,
+var pipeline = pipe(EffectFindFirstElement(numbers, function(x) {
+    return x === 3;
+}), Effect.flatMap(function(x) {
+    return validateFeature(x);
+}));
+var program = Effect.match(pipeline, {
+    onSuccess: function(v) {
+        console.log(v);
+    },
     onFailure: function(error) {
-        console.error("中间步骤处理 error", error);
+        Effect.catchTags({
+            NotOddNumber: function() {
+                console.log("/");
+            },
+            NotFoundError: function() {
+                console.log("?");
+            }
+        });
     }
 });
-Effect.runPromise(findEven).then(function(even) {
-    console.log("程序结果", even);
-}).catch(function(error) {
-    console.log("最后错误", error);
-});
-Effect.runPromise(findPostIdEvenv).then(function(even) {
-    console.log("程序结果", even);
-}).catch(function(error) {
-    console.log("最后错误", error);
-});
+Effect.runPromise(program).then(function(r) {});
 
