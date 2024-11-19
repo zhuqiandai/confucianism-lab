@@ -1,3 +1,3 @@
-function greet<Str extends string> (s: Str) {
-
+function greet<Str extends { content: string }> (s: Str) {
+	return s.content	
 }

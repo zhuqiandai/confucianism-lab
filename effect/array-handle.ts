@@ -31,6 +31,9 @@ const program = Effect.match(pipeline, {
 	}
 })
 
-Effect.runPromise(program).then((r) => {
+Effect.runPromise(program).then(
+	(r) => {
 
-})
+	}, 
+	() => {}
+)
