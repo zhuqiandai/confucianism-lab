@@ -1,12 +1,23 @@
-import { Console, Effect, Scope } from 'effect'
+import { Console, Effect, Exit, Scope } from 'effect'
 
-const program  = Effect.gen(function* () {
-	yield* Effect.addFinalizer(exit => Console.log(`${exit._tag}`))
 
-	return "suu"
+const task1 = Effect.gen(function*() {
+	yield* Effect.addFinalizer(() => Console.log("task1"))	
 })
 
-const runnable = Effect.scoped(program)
+const task2 = Effect.gen(function*() {
+	yield* Effect.addFinalizer(() => Console.log("task2"))	
+})
+
+const program = Effect.gen(function*() {
+		
+	const scope1 = yield* Scope.make()
+
+	yield* task1.pipe(Scope.extend(scope1))
+
+	yield* Scope.close(scope1, Exit.void)
+})
+
+Effect.runPromise(program)
 
 
-Effect.runPromiseExit(runnable).then(console.log)
