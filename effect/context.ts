@@ -22,3 +22,9 @@ class Random extends Context.Tag("MyRandomService")<
   Random,
   { readonly next: Effect.Effect<number> }
 >() {}
+
+const handled = Effect.succeed(10).pipe(
+  // Effect.orElse(() => Effect.succeed({ age: 0, name: 'Anonymous' }))
+  // Effect.orElseSucceed(() => ({ age: 0, name: 'Anonymous' }))
+  Effect.orElseFail(() => ({ age: 0, name: 'Anonymous' }))
+); 
