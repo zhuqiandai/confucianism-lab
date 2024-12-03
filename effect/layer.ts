@@ -17,3 +17,38 @@ const program2 = Effect.gen(function* () {
 });
 
 const FooLive = Layer.succeed(Foo, {foo: 4})
+
+
+// layer: server depends on other services
+
+class Prometheus extends Context.Tag("Prometheus") <Prometheus, {
+	readonly register: (name: string, value: number) => Effect.Effect<string>
+}> () {
+};
+
+const PrometheusLive = Layer.succeed(
+  Prometheus,
+  Prometheus.of({
+    // actual implementation is irrelevant here, so I'll just `succeed` it:
+    register: (name: string, value: number) => Effect.succeed(""),
+  })
+); 
+
+class Logger extends Context.Tag("Logger")<
+  Logger,
+  { readonly log: (message: string) => Effect.Effect<void> }
+>() {}
+const LoggerLive = Layer.effect(
+	Logger, 
+	Effect.gen(function* () {
+   	const prometheus  = yield* Prometheus; 
+
+		return {
+			log: (message) => Effect.gen(function*( ){ 
+				const result = prometheus.register("hello", 20)
+				console.log(message)
+			})
+		}
+
+	})
+)

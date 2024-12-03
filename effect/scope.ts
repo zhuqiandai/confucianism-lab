@@ -16,6 +16,8 @@ const program = Effect.gen(function*() {
 	yield* task1.pipe(Scope.extend(scope1))
 
 	yield* Scope.close(scope1, Exit.void)
+
+	return 'hello'
 })
 
 Effect.runPromise(program)
