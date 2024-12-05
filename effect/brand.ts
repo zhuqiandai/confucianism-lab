@@ -19,3 +19,6 @@ const getProductById = (id: ProductId) => {
 };
 
 declare const id: UserId;
+
+declare const sid = 'userid'
+
