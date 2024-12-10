@@ -24,3 +24,12 @@ let center s = match  s with
 (* recursive variant *)
 type node = {value : int ; next: mylist} and mylist = Nil | Node of node
 
+
+(* parameterized variant *)
+(* Cons is a  *)
+type 'a mylist = Nil | Cons of 'a * 'a mylist
+let lst3 = Cons (3, Nil)
+let lst_hi = Cons ("hi", Nil)
+
+
+
