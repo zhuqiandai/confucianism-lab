@@ -32,4 +32,16 @@ let lst3 = Cons (3, Nil)
 let lst_hi = Cons ("hi", Nil)
 
 
+(* begin end *)
+let rec list_max = function
+  | [] -> None
+  | h :: t -> begin
+      match list_max t with
+        | None -> Some h
+        | Some m -> Some (max h m)
+      end
+
+let m = list_max [10];;
+
+(* polymorphic variant *)
 

@@ -23,6 +23,3 @@ type mon = { name : string; hp : int; ptype : ptype}
 let c = { name = "Charmander"; hp = 39; ptype = TFire};;
 
 let a = match (1,2,3) with (x, y,z ) -> x + y + z
-
-
-let a = Some 10
